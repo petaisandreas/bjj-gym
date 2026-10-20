@@ -1,0 +1,10 @@
+{
+  "name": "bjj-gym",
+  "version": "1.0.0",
+  "private": true,
+  "description": "BJJ GYM — academy management platform for Jiu-Jitsu schools",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
