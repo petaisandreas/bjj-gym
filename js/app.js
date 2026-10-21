@@ -1,5 +1,5 @@
 // App shell: sidebar navigation + hash router. Each view exports { title, render(params), mount?(el, params) }.
-import { db, subscribe } from "./store.js";
+import { db, subscribe, client, KEYS, ownerInitials } from "./store.js";
 import { esc, $ } from "./ui.js";
 import dashboard from "./views/dashboard.js";
 import students from "./views/students.js";
@@ -45,7 +45,8 @@ function render() {
   main.innerHTML = view.render(current.params);
   view.mount?.(main, current.params);
   main.scrollTop = scroll;
-  document.title = `${view.title} · BJJ GYM`;
+  document.title = `${view.title} · ${client.appName}`;
+  const me = $(".avatar.me"); if (me) me.textContent = ownerInitials();
   renderNav();
 }
 
@@ -86,12 +87,12 @@ document.addEventListener("keydown", (e) => {
 
 // Theme toggle (persisted per viewer).
 const themeBtn = $("#theme-btn");
-try { const t = localStorage.getItem("bjjgym:theme"); if (t) document.documentElement.dataset.theme = t; } catch {}
+try { const t = localStorage.getItem(KEYS.theme); if (t) document.documentElement.dataset.theme = t; } catch {}
 themeBtn.addEventListener("click", () => {
   const cur = document.documentElement.dataset.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
   const next = cur === "dark" ? "light" : "dark";
   document.documentElement.dataset.theme = next;
-  try { localStorage.setItem("bjjgym:theme", next); } catch {}
+  try { localStorage.setItem(KEYS.theme, next); } catch {}
 });
 
 route();

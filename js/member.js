@@ -1,9 +1,9 @@
 // Member portal: students sign in with email + PIN to book classes, track belt progress, pay invoices and shop.
-import { db, update, subscribe, uid, today, iso, addDays, byId, money, eligibility, classesOn, DAYS, docStatus } from "./store.js";
+import { db, update, subscribe, uid, today, iso, addDays, byId, money, eligibility, classesOn, DAYS, docStatus, client, KEYS } from "./store.js";
 import { uploadDocument, viewDocument, DOC_LABEL } from "./docs-ui.js";
 import { esc, $, $$, beltChip, badge, fmtDate, fmtTime, progress, toast, empty } from "./ui.js";
 
-const SESSION = "bjjgym:member";
+const SESSION = KEYS.member;
 const TABS = [["home", "Home", "⌂"], ["classes", "Classes", "▦"], ["progress", "Progress", "▬"], ["pay", "Billing", "$"], ["shop", "Shop", "▣"]];
 let tab = "home";
 let shopCat = "";
@@ -17,7 +17,7 @@ const me = () => byId("students", getSession());
 function login() {
   const demo = db().students.find((s) => s.status === "active" && !s.kid && s.waiver);
   return `<div class="m-login">
-    <div class="brand"><img src="assets/logo.svg" alt="" width="44" height="44" /><span>BJJ<b>GYM</b></span></div>
+    <div class="brand"><img src="assets/logo.svg" alt="" width="44" height="44" /><span>${esc(client.wordmark.main)}<b>${esc(client.wordmark.accent)}</b></span></div>
     <h1>Member sign in</h1>
     <p class="muted">${esc(db().academy.name)}</p>
     <form id="login" class="m-card" novalidate>
@@ -182,16 +182,16 @@ function shop() {
 // --- shell ----------------------------------------------------------------------
 function render() {
   const s = me();
-  if (!s) { setSession(null); root.innerHTML = login(); mountLogin(); document.title = "Sign in · BJJ GYM"; return; }
+  if (!s) { setSession(null); root.innerHTML = login(); mountLogin(); document.title = `Sign in · ${client.appName}`; return; }
   const body = { home, classes, progress: progressTab, pay, shop }[tab](s);
   const owed = db().invoices.filter((i) => i.studentId === s.id && i.status !== "paid").length;
   const scroll = window.scrollY;
   root.innerHTML = `
-    <header class="m-top"><div class="brand"><img src="assets/logo.svg" alt="" width="30" height="30" /><span>BJJ<b>GYM</b></span></div>
+    <header class="m-top"><div class="brand"><img src="assets/logo.svg" alt="" width="30" height="30" /><span>${esc(client.wordmark.main)}<b>${esc(client.wordmark.accent)}</b></span></div>
       <button class="m-me" data-menu aria-label="Account">${esc(s.first[0])}${esc(s.last[0] || "")}</button></header>
     <main class="m-main">${body}</main>
     <nav class="m-tabs">${TABS.map(([k, l, i]) => `<button data-tab="${k}" class="${tab === k ? "on" : ""}"><span>${i}${k === "pay" && owed ? `<i class="m-dot"></i>` : ""}</span>${l}</button>`).join("")}</nav>`;
-  document.title = `${TABS.find((t) => t[0] === tab)[1]} · BJJ GYM`;
+  document.title = `${TABS.find((t) => t[0] === tab)[1]} · ${client.appName}`;
   window.scrollTo(0, scroll);
   mount(s);
 }

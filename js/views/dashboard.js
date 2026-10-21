@@ -1,4 +1,4 @@
-import { db, today, iso, addDays, money, fullName, byId, eligibility, classesOn, DAYS, docStatus, paymentStatus } from "../store.js";
+import { db, today, iso, addDays, money, fullName, byId, eligibility, classesOn, DAYS, docStatus, paymentStatus, ownerShort } from "../store.js";
 import { esc, barChart, beltChip, fmtTime, avatar, badge, progress } from "../ui.js";
 
 export default {
@@ -29,7 +29,7 @@ export default {
 
     return `
     <div class="page-head">
-      <div><p class="eyebrow">${new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}</p><h1>Oss, ${esc(d.academy.owner.split(" ")[0])}.</h1></div>
+      <div><p class="eyebrow">${new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}</p><h1>Oss, ${esc(ownerShort())}.</h1></div>
       <div class="actions"><a class="btn btn-ghost" href="tv.html" target="_blank">Mat TV ↗</a><a class="btn btn-ghost" href="kiosk.html" target="_blank">Open kiosk ↗</a><a class="btn btn-primary" href="#/students/new">+ New member</a></div>
     </div>
 

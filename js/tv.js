@@ -1,5 +1,5 @@
 // Gym TV: big round timer + live list of who is checked in to the current class.
-import { db, subscribe, today, classesOn, byId, fullName } from "./store.js";
+import { db, subscribe, today, classesOn, byId, fullName, KEYS } from "./store.js";
 import { esc, $, $$, beltChip, fmtTime, modal, field } from "./ui.js";
 
 // --- settings (per device) ------------------------------------------------------
@@ -10,7 +10,7 @@ const PRESETS = [
   { name: "Kids", work: 120, rest: 60, rounds: 5 },
   { name: "Positional", work: 60, rest: 15, rounds: 10 },
 ];
-const KEY = "bjjgym:tv";
+const KEY = KEYS.tv;
 let cfg = { ...PRESETS[0], warn: 30, prep: 10, sound: true };
 try { Object.assign(cfg, JSON.parse(localStorage.getItem(KEY) || "{}")); } catch {}
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(cfg)); } catch {} };

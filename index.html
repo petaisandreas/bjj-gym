@@ -3,15 +3,17 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>BJJ GYM — Academy software built on the mats</title>
-  <meta name="description" content="BJJ GYM runs your Jiu-Jitsu academy: members, schedule, check-ins, billing, belts, leads, staff, shop and reports in one place." />
+  <title>{{siteTitle}}</title>
+  <meta name="description" content="{{siteDescription}}" />
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="assets/icon-apple.png">
   <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/client.css" />
   <link rel="stylesheet" href="css/site.css" />
 </head>
 <body class="site">
   <header class="nav">
-    <a href="#" class="brand"><img src="assets/logo.svg" alt="" width="36" height="36" /><span>BJJ<b>GYM</b></span></a>
+    <a href="#" class="brand"><img src="assets/logo.svg" alt="" width="36" height="36" /><span>{{wordmarkMain}}<b>{{wordmarkAccent}}</b></span></a>
     <nav class="nav-links">
       <a href="#features">Features</a><a href="#how">How it works</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a>
     </nav>
@@ -20,9 +22,9 @@
 
   <section class="hero">
     <div class="hero-copy">
-      <span class="pill">🥋 Built by grapplers, for academy owners</span>
+      <span class="pill">{{promo}}</span>
       <h1>Run your academy.<br /><em>Not</em> your spreadsheets.</h1>
-      <p class="lead">BJJ GYM puts members, class check-ins, billing, belt promotions and lead follow-up in one fast, mobile-friendly workspace — so you can spend your evenings on the mats instead of behind a desk.</p>
+      <p class="lead">{{heroLead}}</p>
       <div class="hero-cta"><a href="#trial" class="btn btn-primary btn-lg">Try it free for 30 days</a><a href="app.html" class="btn btn-ghost btn-lg">Explore the demo →</a></div>
       <ul class="ticks"><li>No contract</li><li>No card required</li><li>Unlimited members</li></ul>
     </div>
@@ -59,7 +61,7 @@
       <article><span class="f-ico">$</span><h3>Billing & payments</h3><p>Recurring memberships, class packs, one-off invoices and failed-payment retries — with a clear view of what's owed.</p></article>
       <article><span class="f-ico">➚</span><h3>Leads & automations</h3><p>A drag-and-drop pipeline from first enquiry to signed member, plus email and SMS sequences that follow up for you.</p></article>
       <article><span class="f-ico">☰</span><h3>Staff & payroll</h3><p>Assign coaches to classes, set per-class rates and get payroll totals for any pay period automatically.</p></article>
-      <article><span class="f-ico">▬</span><h3>Belts & progress</h3><p>Set your own stripe and belt requirements. BJJ GYM tracks mat time and tells you who's ready to be promoted.</p></article>
+      <article><span class="f-ico">▬</span><h3>Belts & progress</h3><p>Set your own stripe and belt requirements. {{appName}} tracks mat time and tells you who's ready to be promoted.</p></article>
       <article><span class="f-ico">❖</span><h3>Curriculum builder</h3><p>A technique library organized by belt and position, sequenced into weekly lesson plans every coach can follow.</p></article>
       <article><span class="f-ico">▣</span><h3>Pro shop & inventory</h3><p>Sell gis, rash guards and drinks from a touch-friendly register. Low-stock alerts keep the shelves full.</p></article>
       <article><span class="f-ico">◔</span><h3>Reports</h3><p>Revenue, profit, retention, busiest days and at-risk members — the numbers that actually move an academy.</p></article>
@@ -101,7 +103,7 @@
   <section id="faq" class="section narrow">
     <header class="section-head"><span class="eyebrow">FAQ</span><h2>Questions from the mat.</h2></header>
     <details><summary>Do I need a credit card to try it?</summary><p>No. The 30-day trial is fully featured and requires only your academy name and email.</p></details>
-    <details><summary>Can members pay through BJJ GYM?</summary><p>Yes. Recurring plans, class packs, event fees and shop purchases can all be billed to a member's account.</p></details>
+    <details><summary>Can members pay through {{appName}}?</summary><p>Yes. Recurring plans, class packs, event fees and shop purchases can all be billed to a member's account.</p></details>
     <details><summary>Does it work for kids programs?</summary><p>Yes — kids ranks (grey, yellow, orange, green) have their own promotion rules, and kids classes get their own rosters.</p></details>
     <details><summary>What happens to my data if I leave?</summary><p>It's yours. Export members to CSV or download a full backup any time from Settings.</p></details>
   </section>
@@ -125,8 +127,8 @@
   </section>
 
   <footer class="footer">
-    <div class="brand"><img src="assets/logo.svg" alt="" width="28" height="28" /><span>BJJ<b>GYM</b></span></div>
-    <p>© <span id="yr"></span> BJJ GYM. Made for the Jiu-Jitsu community.</p>
+    <div class="brand"><img src="assets/logo.svg" alt="" width="28" height="28" /><span>{{wordmarkMain}}<b>{{wordmarkAccent}}</b></span></div>
+    <p>© <span id="yr"></span> {{appName}}. Made for the Jiu-Jitsu community.</p>
     <nav><a href="app.html">Staff app</a><a href="member.html">Member portal</a><a href="kiosk.html">Kiosk</a><a href="#pricing">Pricing</a></nav>
   </footer>
 

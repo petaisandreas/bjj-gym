@@ -1,4 +1,4 @@
-import { db, update, uid, resetDemo, money } from "../store.js";
+import { db, update, uid, resetDemo, money, client } from "../store.js";
 import { esc, $, $$, field, readForm, toast } from "../ui.js";
 
 export default {
@@ -14,7 +14,7 @@ export default {
           ${field("Academy name", "name", a.name, { required: true, span: 2 })}
           ${field("Owner", "owner", a.owner)}
           ${field("Contact email", "email", a.email, { type: "email" })}
-          ${field("Currency", "currency", a.currency, { options: ["USD", "EUR", "GBP", "AUD", "CAD", "BRL"] })}
+          ${field("Currency", "currency", a.currency, { options: [...new Set(["USD", "EUR", "GBP", "AUD", "CAD", "BRL", client.locale.currency])] })}
         </div>
         <button class="btn btn-primary mt">Save profile</button>
       </form>
@@ -65,7 +65,7 @@ export default {
     $$("[data-rm-loc]", el).forEach((b) => (b.onclick = () => update((d) => d.academy.locations.splice(Number(b.dataset.rmLoc), 1))));
     $("[data-reset]", el).onclick = () => { if (confirm("Replace all data with the demo academy?")) { resetDemo(); toast("Demo data restored"); } };
     $("[data-backup]", el).onclick = () => {
-      const a = Object.assign(document.createElement("a"), { href: URL.createObjectURL(new Blob([JSON.stringify(db(), null, 2)], { type: "application/json" })), download: "bjj-gym-backup.json" });
+      const a = Object.assign(document.createElement("a"), { href: URL.createObjectURL(new Blob([JSON.stringify(db(), null, 2)], { type: "application/json" })), download: `${client.id}-backup.json` });
       a.click(); URL.revokeObjectURL(a.href);
     };
     $("[data-restore]", el).onchange = async (e) => {
@@ -74,7 +74,7 @@ export default {
         if (!data.students || !data.academy) throw new Error();
         update((d) => { Object.keys(d).forEach((k) => delete d[k]); Object.assign(d, data); });
         toast("Backup restored");
-      } catch { toast("That file isn't a BJJ GYM backup", "warn"); }
+      } catch { toast(`That file isn't a ${client.appName} backup`, "warn"); }
     };
   },
 };

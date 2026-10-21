@@ -1,8 +1,9 @@
 // Uploaded document files live in IndexedDB (localStorage is too small for PDFs and photos).
 // Metadata stays in the main store under `documents`.
 import { esc } from "./ui.js";
+import { KEYS } from "./store.js";
 
-const DB = "bjjgym-files", STORE = "files";
+const DB = KEYS.filesDb, STORE = "files";
 export const MAX_BYTES = 10 * 1024 * 1024;
 export const ACCEPT = "application/pdf,image/png,image/jpeg,image/webp,image/heic";
 

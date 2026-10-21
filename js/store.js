@@ -1,5 +1,11 @@
 // Data layer: a single JSON document in localStorage, seeded with demo data.
-const KEY = "bjjgym:v1";
+import client from "./client.js";
+
+export { client };
+const P = client.storagePrefix;
+// Browser storage names, derived from the client (each client gets its own, so clients on one origin never share data).
+export const KEYS = Object.freeze({ data: `${P}:v1`, member: `${P}:member`, theme: `${P}:theme`, tv: `${P}:tv`, filesDb: `${P}-files` });
+const KEY = KEYS.data;
 
 export const ADULT_BELTS = ["White", "Blue", "Purple", "Brown", "Black"];
 export const KID_BELTS = ["White", "Grey", "Yellow", "Orange", "Green"];
@@ -31,10 +37,10 @@ function seed() {
   const now = new Date();
 
   const staff = [
-    { id: "st_1", name: "Rafael Moreira", role: "Head Instructor", email: "rafael@bjjgym.app", rate: 45, color: "#e4572e" },
-    { id: "st_2", name: "Dana Kowalski", role: "Instructor", email: "dana@bjjgym.app", rate: 35, color: "#2457c5" },
-    { id: "st_3", name: "Marcus Lee", role: "Kids Coach", email: "marcus@bjjgym.app", rate: 30, color: "#3c9a4b" },
-    { id: "st_4", name: "Priya Nair", role: "Front Desk", email: "priya@bjjgym.app", rate: 18, color: "#6c3fb5" },
+    { id: "st_1", name: client.owner.name, role: "Head Instructor", email: `${client.owner.name.split(/\s+/)[0].toLowerCase()}@${client.seed.staffEmailDomain}`, rate: 45, color: "#e4572e" },
+    { id: "st_2", name: "Dana Kowalski", role: "Instructor", email: `dana@${client.seed.staffEmailDomain}`, rate: 35, color: "#2457c5" },
+    { id: "st_3", name: "Marcus Lee", role: "Kids Coach", email: `marcus@${client.seed.staffEmailDomain}`, rate: 30, color: "#3c9a4b" },
+    { id: "st_4", name: "Priya Nair", role: "Front Desk", email: `priya@${client.seed.staffEmailDomain}`, rate: 18, color: "#6c3fb5" },
   ];
 
   const plans = [
@@ -47,7 +53,7 @@ function seed() {
 
   const classes = [];
   const addClass = (name, days, start, dur, instructorId, level, capacity = 30) =>
-    days.forEach((day) => classes.push({ id: uid("cl"), name, day, start, duration: dur, instructorId, level, capacity, location: "Main Academy" }));
+    days.forEach((day) => classes.push({ id: uid("cl"), name, day, start, duration: dur, instructorId, level, capacity, location: client.seed.location }));
   addClass("Morning Fundamentals", [1, 3, 5], "06:30", 60, "st_2", "Fundamentals", 24);
   addClass("Lunch All Levels", [1, 2, 3, 4, 5], "12:00", 60, "st_1", "All Levels", 30);
   addClass("Kids Little Grapplers", [1, 3], "16:30", 45, "st_3", "Kids", 20);
@@ -85,7 +91,7 @@ function seed() {
       waiver: r() < 0.9,
       pin: String(1000 + i * 37).slice(-4),
       notes: "",
-      location: "Main Academy",
+      location: client.seed.location,
     });
   }
 
@@ -193,8 +199,8 @@ function seed() {
   ];
 
   const products = [
-    { id: uid("pr"), name: "BJJ GYM Gi — White", sku: "GI-W", category: "Gis", price: 149, stock: 12, lowAt: 5 },
-    { id: uid("pr"), name: "BJJ GYM Gi — Blue", sku: "GI-B", category: "Gis", price: 149, stock: 4, lowAt: 5 },
+    { id: uid("pr"), name: `${client.appName} Gi — White`, sku: "GI-W", category: "Gis", price: 149, stock: 12, lowAt: 5 },
+    { id: uid("pr"), name: `${client.appName} Gi — Blue`, sku: "GI-B", category: "Gis", price: 149, stock: 4, lowAt: 5 },
     { id: uid("pr"), name: "Rash Guard (ranked)", sku: "RG-R", category: "Apparel", price: 55, stock: 22, lowAt: 8 },
     { id: uid("pr"), name: "Academy T-Shirt", sku: "TS-01", category: "Apparel", price: 28, stock: 40, lowAt: 10 },
     { id: uid("pr"), name: "Mouthguard", sku: "MG-01", category: "Accessories", price: 15, stock: 3, lowAt: 6 },
@@ -215,7 +221,7 @@ function seed() {
   ];
 
   return {
-    academy: { name: "BJJ GYM Academy", owner: "Rafael Moreira", currency: "USD", locations: ["Main Academy"], email: "hello@bjjgym.app" },
+    academy: { name: client.businessName, owner: client.owner.name, currency: client.locale.currency, locations: [client.seed.location], email: client.contact.email, instagram: client.contact.instagram },
     staff, plans, classes, students, attendance, bookings: [], invoices, expenses, leads, automations,
     rankRules, techniques, lessonPlans, products, sales, events, messages: [],
     documents: sampleDocuments(students),
@@ -305,6 +311,16 @@ function persist() {
 }
 
 export const db = () => state;
+
+// The academy owner as saved in the data (editable in Settings), falling back to the client's configured owner.
+export const ownerName = () => state.academy.owner || client.owner.name;
+export const ownerShort = () => (ownerName() === client.owner.name ? client.owner.short : ownerName().trim().split(/\s+/)[0]);
+export const ownerInitials = () => {
+  const name = ownerName();
+  if (name === client.owner.name) return client.owner.initials;
+  const w = name.trim().split(/\s+/).filter(Boolean);
+  return ((w.length > 1 ? w[0][0] + w[w.length - 1][0] : (w[0] || "").slice(0, 2)) || client.owner.initials).toUpperCase();
+};
 export function update(fn) {
   fn(state);
   persist();
@@ -322,7 +338,7 @@ window.addEventListener("storage", (e) => {
 // --- derived helpers ----------------------------------------------------------
 export const byId = (list, id) => state[list].find((x) => x.id === id);
 export const fullName = (s) => (s ? `${s.first} ${s.last}` : "—");
-export const money = (n) => new Intl.NumberFormat("en-US", { style: "currency", currency: state.academy.currency || "USD", maximumFractionDigits: n % 1 ? 2 : 0 }).format(n || 0);
+export const money = (n) => new Intl.NumberFormat(client.locale.numberLocale, { style: "currency", currency: state.academy.currency || client.locale.currency, maximumFractionDigits: n % 1 ? 2 : 0 }).format(n || 0);
 
 export function classesSince(studentId, since) {
   return state.attendance.filter((a) => a.studentId === studentId && a.date >= since).length;

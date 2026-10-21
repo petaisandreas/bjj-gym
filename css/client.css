@@ -1,0 +1,17 @@
+/* GENERATED from clients/bjj-gym/client.json by scripts/sync-default.mjs / scripts/build.mjs. Do not edit by hand. */
+:root {
+  --accent: #1f242c;
+  --accent-ink: #ffffff;
+  --accent-soft: rgba(31, 36, 44, 0.08);
+  --accent-2: #2457c5;
+  --screen-accent: #3b82f6;
+  --screen-accent-ink: #ffffff;
+  --brand: #e4572e;
+}
+
+:root[data-theme="dark"] {
+  --accent: #eceef1;
+  --accent-ink: #111317;
+  --accent-soft: rgba(236, 238, 241, 0.1);
+  --accent-2: #7aa2ff;
+}

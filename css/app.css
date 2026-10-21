@@ -303,7 +303,7 @@ input[type="search"].input { min-width: 220px; }
 .group-mini em { font-style: normal; color: var(--danger); font-weight: 600; }
 
 /* ---------- kiosk ---------- */
-body.kiosk { --accent: #3b82f6; --accent-ink: #fff; min-height: 100vh; background: #111317; color: #f3f1ec; display: flex; flex-direction: column; }
+body.kiosk { --accent: var(--screen-accent); --accent-ink: var(--screen-accent-ink); min-height: 100vh; background: #111317; color: #f3f1ec; display: flex; flex-direction: column; }
 .kiosk-head { display: flex; justify-content: space-between; align-items: center; padding: 22px 36px; }
 .kiosk-head .brand { color: #fff; }
 .k-clock { font: 800 28px var(--display); }

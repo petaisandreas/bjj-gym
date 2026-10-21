@@ -1,0 +1,26 @@
+{
+  "id": "bjj-gym",
+  "isDefault": true,
+  "appName": "BJJ GYM",
+  "wordmark": { "main": "BJJ", "accent": "GYM" },
+  "businessName": "BJJ GYM Academy",
+  "owner": { "name": "Rafael Moreira", "short": "Rafael", "initials": "RM" },
+  "contact": { "email": "hello@bjjgym.app", "instagram": "bjjgym" },
+  "locale": { "currency": "USD", "numberLocale": "en-US" },
+  "storagePrefix": "bjjgym",
+  "seed": { "location": "Main Academy", "staffEmailDomain": "bjjgym.app" },
+  "site": {
+    "title": "BJJ GYM — Academy software built on the mats",
+    "description": "BJJ GYM runs your Jiu-Jitsu academy: members, schedule, check-ins, billing, belts, leads, staff, shop and reports in one place.",
+    "heroLead": "BJJ GYM puts members, class check-ins, billing, belt promotions and lead follow-up in one fast, mobile-friendly workspace — so you can spend your evenings on the mats instead of behind a desk.",
+    "promo": "🥋 Built by grapplers, for academy owners"
+  },
+  "theme": {
+    "themeColor": "#16181c",
+    "light": { "accent": "#1f242c", "accentInk": "#ffffff", "accent2": "#2457c5" },
+    "dark": { "accent": "#eceef1", "accentInk": "#111317", "accent2": "#7aa2ff" },
+    "screen": { "accent": "#3b82f6", "accentInk": "#ffffff" },
+    "logo": { "bg": "#16181c", "fg": "#e4572e" }
+  },
+  "deploy": { "customDomain": "" }
+}

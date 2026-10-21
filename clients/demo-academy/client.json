@@ -1,0 +1,26 @@
+{
+  "id": "demo-academy",
+  "isDefault": false,
+  "appName": "SUMMIT BJJ",
+  "wordmark": { "main": "SUMMIT", "accent": "BJJ" },
+  "businessName": "Summit Jiu-Jitsu Academy",
+  "owner": { "name": "Elena Vasquez", "short": "Elena", "initials": "EV" },
+  "contact": { "email": "hello@summit-academy.example", "instagram": "summit.academy.demo" },
+  "locale": { "currency": "EUR", "numberLocale": "en-IE" },
+  "storagePrefix": "bjj-demo-academy",
+  "seed": { "location": "Summit Dojo", "staffEmailDomain": "summit-academy.example" },
+  "site": {
+    "title": "Summit Jiu-Jitsu Academy — Train smarter on the mats",
+    "description": "Summit Jiu-Jitsu Academy runs on one workspace: members, schedule, check-ins, billing, belts, leads, staff, shop and reports.",
+    "heroLead": "Summit puts members, class check-ins, billing, belt promotions and lead follow-up in one fast, mobile-friendly workspace, so you can spend your evenings on the mats instead of behind a desk.",
+    "promo": "⛰️ Reach your next belt with Summit"
+  },
+  "theme": {
+    "themeColor": "#0f2e2b",
+    "light": { "accent": "#0f766e", "accentInk": "#ffffff", "accent2": "#115e59" },
+    "dark": { "accent": "#2dd4bf", "accentInk": "#0b1f1d", "accent2": "#99f6e4" },
+    "screen": { "accent": "#14b8a6", "accentInk": "#0b1f1d" },
+    "logo": { "bg": "#0f2e2b", "fg": "#2dd4bf" }
+  },
+  "deploy": { "customDomain": "" }
+}
