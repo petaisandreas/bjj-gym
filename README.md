@@ -72,14 +72,16 @@ Give each real client its own domain (see below) or keep shared-origin clients t
 3. Replace `clients/acme-bjj/logo.svg` (3 minutes) with the academy's logo as a single-colour mark on a square `viewBox`. Only `path`, `rect`, `circle`, `polygon` and `g` are kept and colours are ignored.
    For a full-colour logo instead, put it at `clients/acme-bjj/icons/logo.svg`; only `fill="#rrggbb"` colours survive. Logos are limited to 20 KB. Symbolic links inside `clients/` or the app source are rejected by the build, and icon overrides must be real PNG files. Optional own app icons: `icons/icon-192.png`, `icon-512.png`, `icon-apple.png`.
 4. Build and look (5 minutes): `npm run build`, then `npm run preview` and open `http://127.0.0.1:5173/acme-bjj/`. Check the site, `/acme-bjj/app.html`, the kiosk and the TV.
-5. Publish: commit the `clients/acme-bjj/` folder and push to `main`; the GitHub Pages workflow builds and deploys everything.
+5. Publish: commit the `clients/acme-bjj/` folder and push to `main`, then deploy (see below).
 
 Build just one client with `node scripts/build.mjs --only acme-bjj`, or as a whole site for its own domain with `node scripts/build.mjs --only acme-bjj --as-root`.
 
 ## Deploying to GitHub Pages
 
-`.github/workflows/pages.yml` runs on every push to `main` (and on manual dispatch): `npm ci --ignore-scripts`, `npm run build`, then publishes `dist/`.
-In the repository settings choose **Pages -> Source: GitHub Actions** once.
+`.github/workflows/pages.yml` runs `npm ci --ignore-scripts`, `npm run build`, then publishes `dist/`.
+It currently runs **only when started manually** (Actions tab -> Deploy to GitHub Pages -> Run workflow), because Pages is not enabled on this private repository:
+GitHub Pages for private repositories needs a paid plan (GitHub Pro/Team), and the published site is public even when the repository is private.
+To turn it on: enable **Settings -> Pages -> Source: GitHub Actions**, then re-add the `push: branches: [main]` trigger in the workflow.
 
 ### Custom domain
 
